@@ -4,6 +4,33 @@ import { WarpCoreConfig } from '@hyperlane-xyz/sdk';
 // These configs will be merged with the warp routes in the configured registry
 // The input here is typically the output of the Hyperlane CLI warp deploy command
 export const warpRouteConfigs: WarpCoreConfig = {
-  tokens: [],
+  tokens: [
+    {
+      chainName: 'celestiadevnet',
+      standard: 'CosmosNative' as any,
+      addressOrDenom: 'utia',
+      decimals: 6,
+      name: 'TIA',
+      symbol: 'TIA',
+      connections: [
+        {
+          token: 'cosmosnative|edentestnet|0xc259e540167B7487A89b45343F4044d5951cf871',
+        },
+      ],
+    },
+    {
+      chainName: 'edentestnet',
+      standard: 'EvmHypSynthetic' as any,
+      addressOrDenom: '0xc259e540167B7487A89b45343F4044d5951cf871',
+      decimals: 6,
+      name: 'TIA',
+      symbol: 'TIA',
+      connections: [
+        {
+          token: 'cosmosnative|celestiadevnet|utia',
+        },
+      ],
+    },
+  ],
   options: {},
 };
