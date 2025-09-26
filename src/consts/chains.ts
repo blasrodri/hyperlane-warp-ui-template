@@ -61,7 +61,7 @@ export const chains: ChainMap<ChainMetadata & { mailbox?: Address }> = {
       decimals: 18,
     },
     rpcUrls: [
-      { http: 'https://ev-reth-eden-testnet.binarybuilders.services:8545' },
+      { http: process.env.NODE_ENV === 'development' ? 'http://localhost:3001/rpc' : 'https://ev-reth-eden-testnet.binarybuilders.services:8545' },
     ],
   },
   solanamainnet: {

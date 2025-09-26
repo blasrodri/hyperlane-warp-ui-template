@@ -7,27 +7,28 @@ export const warpRouteConfigs: WarpCoreConfig = {
   tokens: [
     {
       chainName: 'celestiadevnet',
-      standard: 'CosmosNative' as any,
-      addressOrDenom: 'utia',
+      standard: 'CosmosNativeHypCollateral' as any,
+      addressOrDenom: '0x726f757465725f61707000000000000000000000000000010000000000000000',
+      collateralAddressOrDenom: 'utia',
       decimals: 6,
       name: 'TIA',
       symbol: 'TIA',
       connections: [
         {
-          token: 'cosmosnative|edentestnet|0xc259e540167B7487A89b45343F4044d5951cf871',
+          token: 'ethereum|edentestnet|0x5E7e917Df774541F2343B1E17F8D41847E50188C',
         },
       ],
     },
     {
       chainName: 'edentestnet',
       standard: 'EvmHypSynthetic' as any,
-      addressOrDenom: '0xc259e540167B7487A89b45343F4044d5951cf871',
+      addressOrDenom: '0x5E7e917Df774541F2343B1E17F8D41847E50188C',
       decimals: 6,
       name: 'TIA',
       symbol: 'TIA',
       connections: [
         {
-          token: 'cosmosnative|celestiadevnet|utia',
+          token: 'cosmosnative|celestiadevnet|0x726f757465725f61707000000000000000000000000000010000000000000000',
         },
       ],
     },

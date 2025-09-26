@@ -47,16 +47,26 @@ export function CosmosWalletContext({ children }: PropsWithChildren<unknown>) {
           },
         }}
         signerOptions={{
-          signingCosmwasm: () => {
+          signingCosmwasm: (chain) => {
+            // Get gas price based on chain
+            let gasPrice = '0.03token';
+            const chainName = typeof chain === 'string' ? chain : chain?.chain_name;
+            if (chainName === 'celestiadevnet') {
+              gasPrice = '0.03utia';
+            }
             return {
-              // TODO cosmos get gas price from registry or RPC
-              gasPrice: GasPrice.fromString('0.03token'),
+              gasPrice: GasPrice.fromString(gasPrice),
             };
           },
-          signingStargate: () => {
+          signingStargate: (chain) => {
+            // Get gas price based on chain
+            let gasPrice = '0.2utia';
+            const chainName = typeof chain === 'string' ? chain : chain?.chain_name;
+            if (chainName === 'celestiadevnet') {
+              gasPrice = '0.2utia';
+            }
             return {
-              // TODO cosmos get gas price from registry or RPC
-              gasPrice: GasPrice.fromString('0.2tia'),
+              gasPrice: GasPrice.fromString(gasPrice),
             };
           },
         }}

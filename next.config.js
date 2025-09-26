@@ -86,6 +86,15 @@ const nextConfig = {
     ];
   },
 
+  async rewrites() {
+    return [
+      {
+        source: '/rpc/:path*',
+        destination: 'https://ev-reth-eden-testnet.binarybuilders.services:8545/:path*',
+      },
+    ];
+  },
+
   env: {
     NEXT_PUBLIC_VERSION: version,
   },
