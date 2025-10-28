@@ -92,6 +92,10 @@ const nextConfig = {
         source: '/rpc/:path*',
         destination: 'https://ev-reth-eden-testnet.binarybuilders.services:8545/:path*',
       },
+      {
+        source: '/celestia-api/:path*',
+        destination: 'https://api-mocha.pops.one/:path*',
+      },
     ];
   },
 

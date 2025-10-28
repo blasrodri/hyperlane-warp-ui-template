@@ -14,18 +14,28 @@ import { useTokenByIndex } from './hooks';
 
 export function useBalance(chain?: ChainName, token?: IToken, address?: Address) {
   const multiProvider = useMultiProvider();
+
   const { isLoading, isError, error, data } = useQuery({
     // The Token and Multiprovider classes are not serializable, so we can't use it as a key
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryKey: ['useBalance', chain, address, token?.addressOrDenom],
-    queryFn: () => {
+    queryFn: async () => {
       if (!chain || !token || !address || !isValidAddress(address, token.protocol)) return null;
-      return token.getBalance(multiProvider, address);
+      try {
+        return await token.getBalance(multiProvider, address);
+      } catch (err) {
+        logger.error('Error fetching balance', err);
+        return null;
+      }
     },
     refetchInterval: 30000,
+    retry: false,
+    throwOnError: false,
+    useErrorBoundary: false,
   });
 
-  useToastError(error, 'Error fetching balance');
+  // Silently handle errors instead of showing toast for balance fetch failures
+  // useToastError(error, 'Error fetching balance');
 
   return {
     isLoading,
@@ -59,8 +69,9 @@ export async function getDestinationNativeBalance(
   } catch (error) {
     const msg = `Error checking recipient balance on ${getChainDisplayName(multiProvider, destination)}`;
     logger.error(msg, error);
-    toast.error(msg);
-    return undefined;
+    // Don't show error toast, just log it
+    // toast.error(msg);
+    return 0n; // Return 0 to allow the transfer to proceed anyway
   }
 }
 

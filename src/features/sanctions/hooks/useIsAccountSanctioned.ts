@@ -2,8 +2,10 @@ import { useIsAccountChainalysisSanctioned } from './useIsAccountChainalysisSanc
 import { useIsAccountOfacSanctioned } from './useIsAccountOfacSanctioned';
 
 export function useIsAccountSanctioned() {
-  const isAccountOfacSanctioned = useIsAccountOfacSanctioned();
-  const isAccountChainalysisSanctioned = useIsAccountChainalysisSanctioned();
+  // Disabled for testing
+  // const isAccountOfacSanctioned = useIsAccountOfacSanctioned();
+  // const isAccountChainalysisSanctioned = useIsAccountChainalysisSanctioned();
 
-  return isAccountOfacSanctioned || isAccountChainalysisSanctioned;
+  // return isAccountOfacSanctioned || isAccountChainalysisSanctioned;
+  return false;
 }

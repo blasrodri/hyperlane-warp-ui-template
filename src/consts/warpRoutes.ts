@@ -5,33 +5,66 @@ import { WarpCoreConfig } from '@hyperlane-xyz/sdk';
 // The input here is typically the output of the Hyperlane CLI warp deploy command
 export const warpRouteConfigs: WarpCoreConfig = {
   tokens: [
+    // EDEN Token Route: edentestnet (native) <-> celestiatestnet (synthetic)
     {
-      chainName: 'celestiadevnet',
-      standard: 'CosmosNativeHypCollateral' as any,
-      addressOrDenom: '0x726f757465725f61707000000000000000000000000000010000000000000000',
-      collateralAddressOrDenom: 'utia',
-      decimals: 6,
-      name: 'TIA',
-      symbol: 'TIA',
+      chainName: 'edentestnet',
+      standard: 'EvmHypNative' as any,
+      addressOrDenom: '0x954F1C87a6bc9d102CD4dC85e323500093f793ae',
+      decimals: 18,
+      name: 'EDEN',
+      symbol: 'EDEN',
+      mailbox: '0xBdEfA74aCf073Fc5c8961d76d5DdA87B1Be2C1b0',
+      hook: '0x22379102569dc3fBeA23Dc34e27F52a76c60F034',
       connections: [
         {
-          token: 'ethereum|edentestnet|0x5E7e917Df774541F2343B1E17F8D41847E50188C',
+          token: 'cosmosnative|celestiatestnet|0x726f757465725f61707000000000000000000000000000020000000000000007',
         },
       ],
     },
     {
-      chainName: 'edentestnet',
-      standard: 'EvmHypSynthetic' as any,
-      addressOrDenom: '0x5E7e917Df774541F2343B1E17F8D41847E50188C',
-      decimals: 6,
-      name: 'TIA',
-      symbol: 'TIA',
+      chainName: 'celestiatestnet',
+      standard: 'CosmosNativeHypSynthetic' as any,
+      addressOrDenom: '0x726f757465725f61707000000000000000000000000000020000000000000007',
+      decimals: 18,
+      name: 'EDEN',
+      symbol: 'EDEN',
       connections: [
         {
-          token: 'cosmosnative|celestiadevnet|0x726f757465725f61707000000000000000000000000000010000000000000000',
+          token: 'ethereum|edentestnet|0x954F1C87a6bc9d102CD4dC85e323500093f793ae',
+        },
+      ],
+    },
+    // XO Token Route: xomarkettestnet (native) <-> celestiatestnet (synthetic)
+    {
+      chainName: 'xomarkettestnet',
+      standard: 'EvmHypNative' as any,
+      addressOrDenom: '0x8Fe2521c2DAbB53c176fFBb73C3083eC319454Ac',
+      decimals: 18,
+      name: 'XO',
+      symbol: 'XO',
+      connections: [
+        {
+          token: 'cosmosnative|celestiatestnet|0x726f757465725f61707000000000000000000000000000020000000000000005',
+        },
+      ],
+    },
+    {
+      chainName: 'celestiatestnet',
+      standard: 'CosmosNativeHypSynthetic' as any,
+      addressOrDenom: '0x726f757465725f61707000000000000000000000000000020000000000000005',
+      decimals: 18,
+      name: 'XO',
+      symbol: 'XO',
+      connections: [
+        {
+          token: 'ethereum|xomarkettestnet|0x8Fe2521c2DAbB53c176fFBb73C3083eC319454Ac',
         },
       ],
     },
   ],
-  options: {},
+  options: {
+    interchainGasPayment: {
+      enabled: false,
+    },
+  } as any,
 };
